@@ -4,11 +4,14 @@ require('dotenv').config();
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
-    compilers: [
-      {
-        version: "0.8.20",
-      }
-    ],
+    version: "0.8.20",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 99999,
+      },
+      evmVersion: "paris",
+    },
   },
   networks: {
     hardhat: {
@@ -20,6 +23,14 @@ module.exports = {
     },
     bsc: {
       url: process.env.BSC_URL,
+      accounts: [process.env.PRIVATE_KEY]
+    },
+    arbitrum: {
+      url: process.env.ARBITRUM_URL,
+      accounts: [process.env.PRIVATE_KEY]
+    },
+    optimism: {
+      url: process.env.OPTIMISM_URL,
       accounts: [process.env.PRIVATE_KEY]
     },
     goerli: {
@@ -35,6 +46,7 @@ module.exports = {
     apiKey: process.env.API_KEY,
   },
   mocha: {
-    timeout: 50000
+    timeout: 100000,
+    bail: false,
   },
 };
